@@ -1,0 +1,449 @@
+/**
+ * Tic Tac Toe - Stylesheet
+ *
+ * Organization:
+ * 1. CSS Variables (Design tokens)
+ * 2. Reset & Base Styles
+ * 3. Layout
+ * 4. Components
+ * 5. Animations
+ * 6. Responsive Design
+ */
+
+/* ============================================================================
+   1. CSS VARIABLES - Design tokens for consistency and maintainability
+   ============================================================================ */
+:root {
+    /* Colors */
+    --color-primary: #667eea;
+    --color-primary-dark: #5568d3;
+    --color-secondary: #764ba2;
+    --color-player-x: #3b82f6;
+    --color-player-o: #ef4444;
+    --color-success: #10b981;
+    --color-error: #ef4444;
+    --color-text-dark: #333;
+    --color-text-light: #666;
+    --color-bg-light: #f3f4f6;
+    --color-bg-lighter: #e5e7eb;
+    --color-white: #ffffff;
+    --color-overlay: rgba(0, 0, 0, 0.7);
+
+    /* Spacing */
+    --spacing-xs: 10px;
+    --spacing-sm: 20px;
+    --spacing-md: 30px;
+    --spacing-lg: 40px;
+
+    /* Border radius */
+    --radius-sm: 10px;
+    --radius-md: 15px;
+    --radius-lg: 20px;
+
+    /* Shadows */
+    --shadow-sm: 0 5px 15px rgba(102, 126, 234, 0.4);
+    --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.2);
+    --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.3);
+
+    /* Transitions */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+
+    /* Typography */
+    --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --font-size-base: 1em;
+    --font-size-lg: 1.3em;
+    --font-size-xl: 2.5em;
+    --font-size-xxl: 3em;
+}
+
+/* ============================================================================
+   2. RESET & BASE STYLES - Consistent baseline across browsers
+   ============================================================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: var(--spacing-sm);
+}
+
+/* ============================================================================
+   3. LAYOUT - Main container structure
+   ============================================================================ */
+.container {
+    background: var(--color-white);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-lg);
+    max-width: 500px;
+    width: 100%;
+}
+
+header {
+    text-align: center;
+    margin-bottom: var(--spacing-xs);
+}
+
+h1 {
+    color: var(--color-primary);
+    font-size: var(--font-size-xl);
+}
+
+/* ============================================================================
+   4. COMPONENTS - Modular, reusable components
+   ============================================================================ */
+
+/* Game Info Section */
+.game-info {
+    text-align: center;
+    margin-bottom: var(--spacing-md);
+}
+
+.current-player {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-dark);
+    font-weight: 600;
+    margin-bottom: var(--spacing-xs);
+}
+
+.player-x {
+    color: var(--color-player-x);
+}
+
+.player-o {
+    color: var(--color-player-o);
+}
+
+/* Board Section */
+.board-section {
+    margin-bottom: var(--spacing-md);
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-xs);
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+/* Cell Component */
+.cell {
+    aspect-ratio: 1;
+    background: var(--color-bg-light);
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: var(--font-size-xxl);
+    font-weight: bold;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Cell states */
+.cell:hover:not(.taken) {
+    background: var(--color-bg-lighter);
+    transform: scale(1.05);
+}
+
+.cell:active:not(.taken) {
+    transform: scale(0.95);
+}
+
+.cell.taken {
+    cursor: not-allowed;
+}
+
+.cell.x {
+    color: var(--color-player-x);
+}
+
+.cell.o {
+    color: var(--color-player-o);
+}
+
+/* Controls Section */
+.controls {
+    display: flex;
+    gap: var(--spacing-xs);
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: var(--spacing-sm);
+}
+
+/* Button Component */
+.btn {
+    background: var(--color-primary);
+    color: var(--color-white);
+    border: none;
+    padding: 12px 30px;
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    font-family: var(--font-family);
+}
+
+.btn:hover {
+    background: var(--color-primary-dark);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn-primary {
+    background: var(--color-primary);
+}
+
+.btn-secondary {
+    background: var(--color-text-light);
+}
+
+.btn-secondary:hover {
+    background: var(--color-text-dark);
+}
+
+.btn-large {
+    padding: 15px 40px;
+    font-size: var(--font-size-lg);
+}
+
+/* Status Section */
+.status-section {
+    text-align: center;
+}
+
+.status {
+    color: var(--color-text-light);
+    font-size: 0.9em;
+    min-height: 1.5em;
+}
+
+.status.error {
+    color: var(--color-error);
+    font-weight: 600;
+}
+
+.status.success {
+    color: var(--color-success);
+    font-weight: 600;
+}
+
+/* Winner Modal Component */
+.winner-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.winner-modal.show {
+    display: flex;
+}
+
+.modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--color-overlay);
+}
+
+.modal-content {
+    position: relative;
+    background: var(--color-white);
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    animation: slideIn var(--transition-normal) ease;
+    z-index: 1001;
+    box-shadow: var(--shadow-lg);
+}
+
+.winner-title {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-primary);
+}
+
+.winner-message {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-dark);
+    margin-bottom: var(--spacing-md);
+}
+
+/* ============================================================================
+   5. ANIMATIONS - Smooth transitions and effects
+   ============================================================================ */
+@keyframes slideIn {
+    from {
+        transform: scale(0.7);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Fade in animation for cells */
+.cell {
+    animation: fadeIn var(--transition-fast);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* ============================================================================
+   6. RESPONSIVE DESIGN - Mobile-first approach
+   ============================================================================ */
+
+/* Tablets and smaller */
+@media (max-width: 768px) {
+    .container {
+        padding: var(--spacing-md);
+    }
+
+    h1 {
+        font-size: 2em;
+    }
+
+    .cell {
+        font-size: 2.5em;
+    }
+
+    .board {
+        max-width: 350px;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        font-size: 0.9em;
+    }
+}
+
+/* Mobile phones */
+@media (max-width: 480px) {
+    .container {
+        padding: var(--spacing-sm);
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+
+    .current-player {
+        font-size: 1.1em;
+    }
+
+    .cell {
+        font-size: 2em;
+    }
+
+    .board {
+        max-width: 300px;
+        gap: 8px;
+    }
+
+    .controls {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 12px;
+    }
+
+    .modal-content {
+        padding: var(--spacing-md);
+        margin: var(--spacing-sm);
+    }
+
+    .winner-title {
+        font-size: 2em;
+    }
+
+    .winner-message {
+        font-size: 1.1em;
+    }
+}
+
+/* Small mobile phones */
+@media (max-width: 360px) {
+    h1 {
+        font-size: 1.5em;
+    }
+
+    .cell {
+        font-size: 1.8em;
+    }
+
+    .board {
+        max-width: 280px;
+    }
+}
+
+/* ============================================================================
+   7. UTILITY CLASSES - Reusable helper classes
+   ============================================================================ */
+.hidden {
+    display: none !important;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mt-sm {
+    margin-top: var(--spacing-sm);
+}
+
+.mb-sm {
+    margin-bottom: var(--spacing-sm);
+}
+
+/* Accessibility - Focus styles for keyboard navigation */
+.btn:focus,
+.cell:focus {
+    outline: 3px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
