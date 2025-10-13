@@ -1,10 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe - Professional Edition</title>
+
+    <!-- External CSS file for separation of concerns -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-$END$
+<!-- Main game container -->
+<div class="container">
+    <!-- Game header -->
+    <header>
+        <h1>🎮 Tic Tac Toe</h1>
+    </header>
+
+    <!-- Game information section -->
+    <section class="game-info">
+        <div class="current-player" id="currentPlayer" role="status" aria-live="polite">
+            <!-- Current player info injected by JavaScript -->
+        </div>
+    </section>
+
+    <!-- Game board section -->
+    <section class="board-section">
+        <div class="board" id="board" role="grid" aria-label="Tic Tac Toe game board">
+            <!-- Board cells injected by JavaScript -->
+        </div>
+    </section>
+
+    <!-- Game controls -->
+    <section class="controls">
+        <button id="undoBtn" class="btn btn-secondary" aria-label="Undo last move">
+            Undo
+        </button>
+        <button id="resetBtn" class="btn btn-primary" aria-label="Reset current game">
+            Reset
+        </button>
+        <button id="newGameBtn" class="btn btn-primary" aria-label="Start new game">
+            New Game
+        </button>
+    </section>
+
+    <!-- Status message section -->
+    <section class="status-section">
+        <div class="status" id="status" role="status" aria-live="polite">
+            <!-- Status messages injected by JavaScript -->
+        </div>
+    </section>
+</div>
+
+<!-- Winner modal (hidden by default) -->
+<div class="winner-modal" id="winnerModal" role="dialog" aria-modal="true" aria-labelledby="winnerText">
+    <div class="modal-overlay"></div>
+    <div class="modal-content">
+        <h2 id="winnerText" class="winner-title">
+            <!-- Winner emoji injected by JavaScript -->
+        </h2>
+        <p id="winnerMessage" class="winner-message">
+            <!-- Winner message injected by JavaScript -->
+        </p>
+        <button id="playAgainBtn" class="btn btn-large" aria-label="Play again">
+            Play Again
+        </button>
+    </div>
+</div>
+
+<!-- External JavaScript file for separation of concerns -->
+<script src="app.js"></script>
 </body>
 </html>
