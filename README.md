@@ -17,6 +17,7 @@ A modern, full-stack Tic-Tac-Toe game built with **Spring Boot** backend and **V
 - [Project Structure](#project-structure)
 - [API Endpoints](#api-endpoints)
 - [How to Play](#how-to-play)
+- [Response Format](#response-format)
 - [Future Enhancements](#future-enhancements)
 
 ---
@@ -267,4 +268,5 @@ When a move is made, the response also includes:
 - [ ] **Larger Boards** - Support for 4x4 and 5x5 board sizes
 - [ ] **Dark Mode** - Toggle between light and dark themes
 - [ ] **Sound Effects** - Add audio feedback for moves and wins
+
 
